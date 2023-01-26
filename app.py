@@ -17,15 +17,11 @@ app.config.from_object(app_config)
 Session(app)
 
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
-
 MY_PASSWORD = os.environ['MY_PASSWORD']
 MY_EMAIL = os.environ['MY_EMAIL']
-RECAPTCHA_PRIVATE_KEY = os.environ['RECAPTCHA_PRIVATE_KEY']
-RECAPTCHA_PUBLIC_KEY = os.environ['RECAPTCHA_PUBLIC_KEY']
 VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
 
-app.config['RECAPTCHA_PUBLIC_KEY'] = RECAPTCHA_PUBLIC_KEY
-app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
+
 
 
 @app.route('/', methods=('GET', 'POST'))

@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 CLIENT_ID = "fb027870-9d8a-463e-8507-cfc76b897993" # Application (client) ID of app registration
 
@@ -13,7 +16,7 @@ CLIENT_SECRET = "_4A8Q~fHmouQbkxRpsJ_jJ0VRsfTQAwgbGDoYb.O" # Placeholder - for u
 AUTHORITY = "https://login.microsoftonline.com/organizations"  # For multi-tenant app
 # AUTHORITY = "https://login.microsoftonline.com/Enter_the_Tenant_Name_Here"
 
-REDIRECT_PATH = "/getAToken"  # Used for forming an absolute URL to your redirect URI.
+REDIRECT_PATH = "/access"  # Used for forming an absolute URL to your redirect URI.
                               # The absolute URL must match the redirect URI you set
                               # in the app's registration in the Azure portal.
 
@@ -26,3 +29,7 @@ ENDPOINT = 'https://graph.microsoft.com/v1.0/users'  # This resource requires no
 SCOPE = ["User.ReadBasic.All"]
 
 SESSION_TYPE = "filesystem"  # Specifies the token cache should be stored in server-side session
+
+RECAPTCHA_PUBLIC_KEY= os.environ['RECAPTCHA_PUBLIC_KEY']
+RECAPTCHA_PRIVATE_KEY= os.environ['RECAPTCHA_PRIVATE_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
