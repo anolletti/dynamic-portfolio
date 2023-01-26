@@ -65,10 +65,14 @@ def index():
 
 @app.route('/success')
 def success():
+    today = datetime.date.today()
+    year = today.year
     return render_template('success.html')
 
 @app.route('/login')
 def login():
+    today = datetime.date.today()
+    year = today.year
     session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
     return render_template("login.html", auth_url=session["flow"]["auth_uri"], version=msal.__version__)
 
@@ -78,6 +82,8 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 @app.route("/access")
 def access():
+    today = datetime.date.today()
+    year = today.year
     if not session.get("user"):
         return redirect(url_for("login"))
     return render_template('access.html', user=session["user"], version=msal.__version__)
