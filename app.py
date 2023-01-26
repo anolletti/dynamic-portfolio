@@ -3,6 +3,7 @@ from forms import CourseForm
 import smtplib
 import requests
 import os
+import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,6 +23,8 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
+    today = datetime.date.today()
+    year = today.year
     form = CourseForm()
 
     if request.method == 'POST':
@@ -50,7 +53,7 @@ def index():
 
         return render_template("success.html", sender_name=sender_name, sender_email=sender_email, message=message)
 
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, year=year)
 
 
 @app.route('/success')

@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/6c43bde1-52b9-4314-8dd1-2168c2e0bb9b/AppServices/subscriptions/6c43bde1-52b9-4314-8dd1-2168c2e0bb9b/resourceGroups/anthonynolletti/providers/Microsoft.Web/sites/anthonynolletti",
+  "appService.deploySubpath": "."
+}
