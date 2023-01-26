@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anthony Nolletti's Portfolio</title>
+    <link href="static/css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="d-flex justify-content-center m-5">
+      <div class="col-xs-12 col-md-6">
+        <div class="alert alert-success">
+          <strong>Success!</strong> Your email has been sent.
+        </div>
+        <p>You can review the details of your email below:</p>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">To:</th>
+              <td>Anthony Nolletti</td>
+            </tr>
+            <tr>
+              <th scope="row">From:</th>
+              <td>{{ sender_name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Message:</th>
+              <td>{{ message }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center m-4">
+          <a href="/" class="btn btn-secondary"> Back </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
