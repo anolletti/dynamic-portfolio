@@ -33,8 +33,7 @@
     />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="static/css/styles.css" rel="stylesheet" />
-        <link href="static/css/styles2.css" rel="stylesheet" />
-
+    <link href="static/css/styles2.css" rel="stylesheet" />
   </head>
   <body id="page-top">
     <!-- Navigation-->
@@ -43,7 +42,9 @@
       id="mainNav"
     >
       <div class="container">
-        <a class="navbar-brand" href="{{url_for('index')}}#page-top">Anthony Nolletti</a>
+        <a class="navbar-brand" href="{{url_for('index')}}#page-top"
+          >Anthony Nolletti</a
+        >
         <button
           class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
           type="button"
@@ -59,34 +60,43 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('index')}}#portfolio"
+              <a
+                class="nav-link py-3 px-0 px-lg-3 rounded"
+                href="{{url_for('index')}}#portfolio"
                 >Portfolio</a
               >
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('index')}}#about"
+              <a
+                class="nav-link py-3 px-0 px-lg-3 rounded"
+                href="{{url_for('index')}}#about"
                 >About</a
               >
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{url_for('index')}}#contact"
+              <a
+                class="nav-link py-3 px-0 px-lg-3 rounded"
+                href="{{url_for('index')}}#contact"
                 >Contact</a
               >
             </li>
-             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ url_for('login') }}">Log In</a
+            <li class="nav-item mx-0 mx-lg-1">
+              <a
+                class="nav-link py-3 px-0 px-lg-3 rounded"
+                href="{{ url_for('login') }}"
+                >Log In</a
               >
             </li>
           </ul>
         </div>
       </div>
     </nav>
-{% block content %} {% endblock %}
+    {% block content %} {% endblock %}
 
     <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
       <div class="container">
-        <small>Copyright &copy; Anthony Nolletti {{year}}</small>
+        <small>Copyright &copy; Anthony Nolletti {{year}} Test</small>
       </div>
     </div>
 
