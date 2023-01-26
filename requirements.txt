@@ -11,6 +11,7 @@ gunicorn==20.1.0
 itsdangerous==2.1.2
 Jinja2==3.1.2
 MarkupSafe==2.1.2
+msal>=1.7,<2
 packaging==23.0
 platformdirs==2.6.2
 pyparsing==3.0.9
