@@ -81,8 +81,10 @@ def access():
     today = datetime.date.today()
     year = today.year
     if not session.get("user"):
+        print("User not authenticated)")
         return redirect(url_for("login"))
-    return render_template('access.html', user=session["user"], version=msal.__version__)
+    print("User authenticated")
+    return render_template('access.html', year=year, user=session["user"], version=msal.__version__)
 
 @app.route(app_config.REDIRECT_PATH)  # Its absolute URL must match your app's redirect_uri set in AAD
 def authorized():
