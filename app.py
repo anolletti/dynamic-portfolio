@@ -17,11 +17,11 @@ app.config.from_object(app_config)
 Session(app)
 
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+
 MY_PASSWORD = os.environ['MY_PASSWORD']
 MY_EMAIL = os.environ['MY_EMAIL']
 VERIFY_URL = 'https://www.google.com/recaptcha/api/siteverify'
-
-
+RECAPTCHA_PRIVATE_KEY= os.environ['RECAPTCHA_PRIVATE_KEY']
 
 
 @app.route('/', methods=('GET', 'POST'))
@@ -55,36 +55,44 @@ def index():
             )
 
         return render_template("success.html", sender_name=sender_name, sender_email=sender_email, message=message)
-
-    return render_template('index.html', form=form, year=year)
+    print(loggedIn())
+    return render_template('index.html', form=form, year=year, loggedIn=loggedIn())
 
 
 @app.route('/success')
 def success():
     today = datetime.date.today()
     year = today.year
-    return render_template('success.html')
+    return render_template('success.html', year=year, loggedIn=loggedIn())
 
 @app.route('/login')
 def login():
+    if session.get("user"):
+        return redirect(url_for("access"))
     today = datetime.date.today()
     year = today.year
     session["flow"] = _build_auth_code_flow(scopes=app_config.SCOPE)
-    return render_template("login.html", auth_url=session["flow"]["auth_uri"], version=msal.__version__)
+    return render_template("login.html", year=year, loggedIn=loggedIn(), auth_url=session["flow"]["auth_uri"], version=msal.__version__)
 
 
 from werkzeug.middleware.proxy_fix import ProxyFix
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
+def loggedIn():
+    if not session.get("user"):
+        loggedIn = False
+    else:
+        loggedIn = True
+    return loggedIn
 
 @app.route("/access")
 def access():
     today = datetime.date.today()
     year = today.year
     if not session.get("user"):
-        print("User not authenticated)")
         return redirect(url_for("login"))
-    print("User authenticated")
-    return render_template('access.html', year=year, user=session["user"], version=msal.__version__)
+    usersname = session["user"]["name"].split('(')[0]
+    return render_template('access.html', year=year, loggedIn=loggedIn(), user=usersname, version=msal.__version__)
 
 @app.route(app_config.REDIRECT_PATH)  # Its absolute URL must match your app's redirect_uri set in AAD
 def authorized():
@@ -93,19 +101,17 @@ def authorized():
         result = _build_msal_app(cache=cache).acquire_token_by_auth_code_flow(
             session.get("flow", {}), request.args)
         if "error" in result:
-            return render_template("auth_error.html", result=result)
+            return render_template("auth_error.html", result=result, loggedIn=loggedIn())
         session["user"] = result.get("id_token_claims")
         _save_cache(cache)
     except ValueError:  # Usually caused by CSRF
         pass  # Simply ignore them
-    return redirect(url_for("index"))
+    return redirect(url_for("access"))
 
 @app.route("/logout")
 def logout():
     session.clear()  # Wipe out user and its token cache from session
-    return redirect(  # Also logout from your tenant's web session
-        app_config.AUTHORITY + "/oauth2/v2.0/logout" +
-        "?post_logout_redirect_uri=" + url_for("index", _external=True))
+    return redirect(url_for("login"))
 
 @app.route("/graphcall")
 def graphcall():
